@@ -1,5 +1,5 @@
 /*
- * MediaKit.j
+ * CPApplication+MediaKitAdditions.j
  * MediaKit
  *
  * Created by Francisco Tolmasky.
@@ -20,5 +20,16 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
-@import "CPApplication+MediaKitAdditions.j"
+@import <AppKit/CPApplication.j>
+
 @import "MKMediaPanel.j"
+
+
+@implementation CPApplication (MediaKitAdditions)
+
+- (void)orderFrontMediaPanel:(id)aSender
+{
+    [[MKMediaPanel sharedMediaPanel] orderFront:self];
+}
+
+@end
