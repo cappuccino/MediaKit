@@ -205,7 +205,7 @@ var SharedMediaPanel = nil;
         
         [contentView addSubview:searchResultsLabel];
         
-        loadingView = [[CPView alloc] initWithFrame:[scrollView bounds]];
+        loadingView = [[CPView alloc] initWithFrame:[scrollView frame]];
         [loadingView setAutoresizingMask:CPViewWidthSizable|CPViewHeightSizable];
         
         var progressIndicator = [CPProgressIndicator new];
@@ -218,6 +218,9 @@ var SharedMediaPanel = nil;
         
         [loadingView addSubview:progressIndicator];
         
+        [frameView addSubview:loadingView];
+        [loadingView setHidden:YES];
+
         connectionsByIdentifier = [CPDictionary dictionary];
         URLsByIdentifier = [CPDictionary dictionary];
         resultsByIdentifier = [CPDictionary dictionary];
@@ -383,9 +386,8 @@ var SharedMediaPanel = nil;
         [connection start];
     }
     
-    [loadingView setFrame:[scrollView bounds]];
-    
-    [scrollView setDocumentView:loadingView];
+    [loadingView setHidden:NO];
+
     [searchResultsLabel setStringValue:@"Searching..."];
 }
 
@@ -424,9 +426,8 @@ var SharedMediaPanel = nil;
     [self setResultCount:[updatedResultSet count]];
     [mediaCollectionView setContent:updatedResultSet];    
     [connectionsByIdentifier removeObjectForKey:identifier];
-    
-    if ([scrollView documentView] === loadingView)
-        [scrollView setDocumentView:mediaCollectionView];
+
+    [loadingView setHidden:YES];
 }
 
 - (void)connection:(CPJSONPConnection)aConnection didFailWithError:(CPString)anError

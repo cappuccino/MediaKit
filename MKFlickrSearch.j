@@ -61,7 +61,7 @@
 
         object.title = object.title;
         object.source = [[self class] description];
-        object.contentSize = CGSizeMake(object.o_width, object.o_height);
+        object.contentSize = CGSizeMake(object.o_width ? object.o_width : "unknown", object.o_height ? object.o_height : "unknown");
         object.thumbnailSize = CGSizeMake(75, 75);
         object.thumbnailURL = thumbForFlickrPhoto(object);
         object.url = urlForFlickrPhoto(object);
